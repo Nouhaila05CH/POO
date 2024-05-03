@@ -58,3 +58,40 @@ def search_patient(id):
 S.title('Hospital Patients ')
 data = load_data()
 menu = S.sidebar.selectbox('Menu', ['Add Patient', 'View Patients', 'Update Patient', 'Delete Patient', 'Search Patient'])
+if menu == 'Add Patient':
+    S.sidebar.header('Add New Patient')
+    patient_id = S.sidebar.text_input('ID')
+    gender = S.sidebar.selectbox('Gender', ['Male', 'Female', 'Other'])
+    age = S.sidebar.number_input('Age', min_value=0, max_value=150)
+    hypertension = S.sidebar.checkbox('Hypertension')
+    heart_disease = S.sidebar.checkbox('Heart Disease')
+    ever_married = S.sidebar.selectbox('Ever Married', ['Yes', 'No'])
+    work_type = S.sidebar.selectbox('Work Type', ['Private', 'Self-employed', 'Govt_job', 'Children', 'Never_worked'])
+    residence_type = S.sidebar.selectbox('Residence Type', ['Urban', 'Rural'])
+    avg_glucose_level = S.sidebar.number_input('Average Glucose Level')
+    bmi = S.sidebar.number_input('BMI')
+    smoking_status = S.sidebar.selectbox('Smoking Status', ['Smokes', 'Formerly Smoked', 'Never Smoked', 'Unknown'])
+    stroke = S.sidebar.checkbox('Stroke')
+    if S.sidebar.button('Add'):
+        add_patient(patient_id, gender, age, hypertension, heart_disease, ever_married, work_type, residence_type, avg_glucose_level, bmi, smoking_status, stroke)
+        S.success('Patient added successfully')
+elif menu == 'View Patients':
+    S.header('View Patients')
+    display_patients()
+elif menu == 'Update Patient':
+    S.sidebar.header('Update Patient')
+    patient_id = S.sidebar.text_input('ID')
+    column = S.sidebar.selectbox('Select Column', data.columns)
+    new_value = S.sidebar.text_input('New Value')
+    if S.sidebar.button('Update'):
+        update_patient(patient_id, column, new_value)
+elif menu == 'Delete Patient':
+    S.sidebar.header('Delete Patient')
+    patient_id = S.sidebar.text_input('ID')
+    if S.sidebar.button('Delete'):
+        delete_patient(patient_id)
+elif menu == 'Search Patient':
+    S.sidebar.header('Search Patient')
+    patient_id = S.sidebar.text_input('ID')
+    if S.sidebar.button('Search'):
+        search_patient(patient_id)
